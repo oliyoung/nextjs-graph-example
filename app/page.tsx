@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation'
 
 const Page = () => {
   const searchParams = useSearchParams()
-  const page = searchParams.get('page')
+  const page = searchParams.get('page') || 1
 
   const CHARACTER_QUERY = gql`
   query {

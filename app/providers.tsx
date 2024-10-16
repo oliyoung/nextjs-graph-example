@@ -1,7 +1,8 @@
-'use client'
+'use client';
 
-import { ChakraProvider } from '@chakra-ui/react'
+
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { Provider } from "@/components/ui/provider"
 
 const client = new ApolloClient({
     uri: process.env.NEXT_PUBLIC_GRAPHQL_URI,
@@ -9,9 +10,9 @@ const client = new ApolloClient({
 });
 
 const Providers = ({ children }: { children: React.ReactNode }) => <ApolloProvider client={client}>
-    <ChakraProvider>
+    <Provider>
         {children}
-    </ChakraProvider>
+    </Provider>
 </ApolloProvider>
 
 

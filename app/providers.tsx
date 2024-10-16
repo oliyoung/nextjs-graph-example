@@ -8,13 +8,12 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
 });
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
-    return <ApolloProvider client={client}>
-        <ChakraProvider>
-            {children}
-        </ChakraProvider>
-    </ApolloProvider>
-}
+const Providers = ({ children }: { children: React.ReactNode }) => <ApolloProvider client={client}>
+    <ChakraProvider>
+        {children}
+    </ChakraProvider>
+</ApolloProvider>
+
 
 export { Providers }
 

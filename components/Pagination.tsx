@@ -10,7 +10,7 @@ import {
 import { HStack, VStack } from "@chakra-ui/react";
 
 const Pagination = ({ currentPage, pageCount }: { currentPage: number, pageCount: number }) => {
-    const url = new URL(window.location.href);
+    const url = new URL(window?.location?.href);
 
     return <PaginationRoot
         pageSize={1}

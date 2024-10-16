@@ -4,6 +4,7 @@ import { useQuery, gql } from '@apollo/client';
 import Character from '@/components/Character';
 import Pagination from '@/components/Pagination';
 import { useSearchParams } from 'next/navigation'
+import { Grid, GridItem } from '@chakra-ui/react'
 
 const Page = () => {
   const searchParams = useSearchParams()
@@ -33,11 +34,16 @@ const Page = () => {
   const { loading, error, data } = useQuery(CHARACTER_QUERY);
 
   return <main>
-    {data?.characters.results.map((character: any) => <Character character={character} />)}
-    {!loading && <Pagination
+    <Grid templateColumns='repeat(3, 1fr)' gap={6}>
+      {data?.characters.results.map((character: any) =>
+        <GridItem w='100%' h='100'>
+          <Character character={character} />
+        </GridItem>)}
+    </Grid>
+    <Pagination
       currentPage={Number(page)}
       pageCount={Number(data?.characters.info.pages)}
-    />}
+    />
   </main>
 }
 

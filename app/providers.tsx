@@ -1,6 +1,5 @@
 'use client';
 
-
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { Provider } from "@/components/ui/provider"
 

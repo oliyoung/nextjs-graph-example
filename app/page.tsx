@@ -1,18 +1,16 @@
 'use client';
 
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Character from '@/components/Character';
 import Pagination from '@/components/Pagination';
 import { useSearchParams } from 'next/navigation'
 import { Grid, GridItem } from '@chakra-ui/react'
 
-const Page = () => {
-  const searchParams = useSearchParams()
-  const page = searchParams.get('page') || 1
+import { gql } from '@/__generated__/gql';
 
-  const CHARACTER_QUERY = gql`
-  query {
-    characters(page: ${page}) {
+const getCharactersQuery = gql(`
+    query getCharacters($page: Int!) {
+    characters(page: $page) {
       info {
         pages
         count
@@ -30,19 +28,28 @@ const Page = () => {
         }
       }
     }
-  }`
-  const { loading, error, data } = useQuery(CHARACTER_QUERY);
+  }`)
+
+const Page = () => {
+  const searchParams = useSearchParams()
+  const page = searchParams.get('page') || 1
+
+  const { data } = useQuery(getCharactersQuery, { variables: { page: Number(page) } });
+  if (!data?.characters) {
+    return <></>
+  }
 
   return <main>
     <Grid templateColumns='repeat(3, 1fr)' gap={6}>
-      {data?.characters.results.map((character: any) =>
-        <GridItem w='100%' h='100'>
+      {data?.characters?.results?.map((character) =>
+        character && <GridItem w='100%' h='100'>
           <Character character={character} />
         </GridItem>)}
     </Grid>
+
     <Pagination
       currentPage={Number(page)}
-      pageCount={Number(data?.characters.info.pages)}
+      pageCount={Number(data?.characters?.info?.pages)}
     />
   </main>
 }

@@ -8,8 +8,8 @@ import { Grid, GridItem, VStack } from '@chakra-ui/react'
 
 import { gql } from '@/__generated__/gql';
 import { Character } from '@/types';
-import UserProfile from '@/components/UserProfile';
-
+import { useContext } from 'react';
+import { UserProfileContext } from '@/components/UserProfile';
 
 const getCharactersQuery = gql(`
     query getCharacters($page: Int!) {
@@ -34,17 +34,17 @@ const getCharactersQuery = gql(`
   }`)
 
 const Page = () => {
-
+  const { hasUser } = useContext(UserProfileContext);
   const searchParams = useSearchParams()
   const page = searchParams.get('page') || 1
+  const { data } = useQuery(getCharactersQuery, { variables: { page: Number(page) }, skip: !hasUser });
 
-  const { data } = useQuery(getCharactersQuery, { variables: { page: Number(page) } });
   return <main>
     <VStack gap="4">
-      <Pagination
+      {data?.characters?.info?.pages && <Pagination
         currentPage={Number(page)}
         pageCount={Number(data?.characters?.info?.pages)}
-      />
+      />}
       <Grid templateColumns={['1', '1', 'repeat(2, 1fr)', 'repeat(3, 1fr)', 'repeat(4, 1fr)']} gap={[2, 6]}>
         {data?.characters?.results?.map((character) =>
           character && <GridItem key={character.id}>
@@ -53,6 +53,7 @@ const Page = () => {
       </Grid>
     </VStack>
   </main>
+
 }
 
 export default Page;

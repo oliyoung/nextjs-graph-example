@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Input, Stack, useDisclosure } from '@chakra-ui/react';
-import { useEffect } from 'react'
+import { createContext, Dispatch, SetStateAction, useContext, useEffect } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import { DialogBackdrop, DialogBody, DialogContent, DialogFooter, DialogRoot, DialogTitle, DialogTrigger, DialogHeader } from '@/components/ui/dialog';
 import { Field } from "@/components/ui/field"
@@ -12,8 +12,23 @@ interface FormValues {
     jobTitle: string
 }
 
-const UserProfile = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useLocalStorage<FormValues>('user', { jobTitle: '', username: '' })
+interface UserProfileContextInterface {
+    user?: FormValues,
+    hasUser: boolean,
+    setUser?: Dispatch<SetStateAction<FormValues>>
+}
+
+export const UserProfileContext = createContext<UserProfileContextInterface>({ hasUser: false });
+
+export const UserProfileProvider = ({ children }: { children: React.ReactNode }) => {
+    const [user, setUser] = useLocalStorage<FormValues>('user', { jobTitle: '', username: '' });
+    return <UserProfileContext.Provider value={{ user, setUser, hasUser: user.username != "" }}>
+        {children}
+    </UserProfileContext.Provider>
+}
+
+const UserProfile = () => {
+    const { user, setUser, hasUser } = useContext(UserProfileContext);
     const { open, onOpen, onClose } = useDisclosure()
 
     const {
@@ -23,19 +38,15 @@ const UserProfile = ({ children }: { children: React.ReactNode }) => {
     } = useForm<FormValues>()
 
     const onSubmit = handleSubmit((data) => {
-        setUser({ username: data.username, jobTitle: data.jobTitle })
+        setUser && setUser({ username: data.username, jobTitle: data.jobTitle })
         onClose()
     })
 
     useEffect(() => {
-        if (!user.username) {
+        if (!hasUser) {
             onOpen()
         }
     }, [user]);
-
-    if (user.username && user.jobTitle) {
-        return <>{children}</>
-    }
 
     return <DialogRoot centered motionPreset="slide-in-bottom" open={open}>
         <DialogBackdrop />

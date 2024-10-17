@@ -18,6 +18,7 @@ const getCharactersQuery = gql(`
       }
       results {
         id
+        image
         name
         status
         species
@@ -44,6 +45,7 @@ const Page = () => {
       <BreadcrumbLink href="/">Home</BreadcrumbLink>
       <BreadcrumbCurrentLink>Characters</BreadcrumbCurrentLink>
     </BreadcrumbRoot>
+
     <Grid templateColumns={['1', '1', 'repeat(2, 1fr)', 'repeat(3, 1fr)', 'repeat(4, 1fr)']} gap={[2, 6]}>
       {data?.characters?.results?.map((character) =>
         character && <GridItem>

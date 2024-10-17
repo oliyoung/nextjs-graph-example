@@ -3,6 +3,7 @@
 import { Box, Flex, HStack, IconButton, Stack, useDisclosure } from '@chakra-ui/react'
 
 import { Providers } from './providers'
+import UserProfile from '@/components/UserProfile';
 
 const Navigation = () => {
   return <Box as="a" px={2} py={1} rounded={'md'} _hover={{ textDecoration: 'none', bg: 'gray.200' }}>

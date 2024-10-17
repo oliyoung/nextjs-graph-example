@@ -40,7 +40,6 @@ const Page = () => {
 
   const { data } = useQuery(getCharactersQuery, { variables: { page: Number(page) } });
   return <main>
-    <UserProfile />
     <VStack gap="4">
       <Pagination
         currentPage={Number(page)}

@@ -12,7 +12,7 @@ interface FormValues {
     jobTitle: string
 }
 
-const UserProfile = () => {
+const UserProfile = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useLocalStorage<FormValues>('user', { jobTitle: '', username: '' })
     const { open, onOpen, onClose } = useDisclosure()
 
@@ -33,7 +33,11 @@ const UserProfile = () => {
         }
     }, [user]);
 
-    return <DialogRoot centered motionPreset="slide-in-bottom" open={open} onOpenChange={() => open ? onClose() : onOpen()} >
+    if (user.username && user.jobTitle) {
+        return <>{children}</>
+    }
+
+    return <DialogRoot centered motionPreset="slide-in-bottom" open={open}>
         <DialogBackdrop />
         <DialogTrigger />
         <DialogContent>

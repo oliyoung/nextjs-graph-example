@@ -40,9 +40,9 @@ const Page = () => {
   }
 
   return <main>
-    <Grid templateColumns='repeat(3, 1fr)' gap={6}>
+    <Grid templateColumns={['1', 'repeat(3, 1fr)', 'repeat(4, 1fr)', 'repeat(5, 1fr)']} gap={[2, 6]}>
       {data?.characters?.results?.map((character) =>
-        character && <GridItem w='100%' h='100'>
+        character && <GridItem>
           <Character character={character} />
         </GridItem>)}
     </Grid>
@@ -51,7 +51,7 @@ const Page = () => {
       currentPage={Number(page)}
       pageCount={Number(data?.characters?.info?.pages)}
     />
-  </main>
+  </main >
 }
 
 export default Page;

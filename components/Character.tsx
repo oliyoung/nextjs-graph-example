@@ -4,10 +4,19 @@ import { DataListItem, DataListRoot } from "./ui/data-list"
 import Image from 'next/image'
 
 const CharacterBlock = ({ character }: { character: Character }) => {
-    return <Card.Root w={'100%'} h='100%'>
-        <Card.Header>{character.name}</Card.Header>
+    let status: Record<string, any> = { opacity: 1 }
+    switch (character.status?.toLowerCase()) {
+        case 'dead':
+            status = { opacity: 0.5, filter: 'auto', blur: '2px' }
+            break;
+        case 'unknown':
+            status = { opacity: 0.5 }
+            break;
+    }
+    return <Card.Root w={'100%'} h='100%' >
+        <Card.Header>{character.name} ({character.status})</Card.Header>
         <Card.Body>
-            <Grid templateColumns='repeat(2, 1fr)' gap='4'>
+            <Grid templateColumns='repeat(2, 1fr)' gap='4' {...status}>
                 <GridItem w={120}>
                     {character.image && <Image width="120" height="120" alt={character.name || "Character Photo"} src={character.image} />}
                 </GridItem>
@@ -15,12 +24,11 @@ const CharacterBlock = ({ character }: { character: Character }) => {
                     <DataListRoot orientation={'vertical'}>
                         <DataListItem alignItems='flex-start' key='location' label='Location' value={character?.location?.name} />
                         <DataListItem alignItems='flex-start' key='gender' label='Gender' value={character.gender} />
-                        <DataListItem alignItems='flex-start' key='status' label='Status' value={character.status} />
                         <DataListItem alignItems='flex-start' key='species' label='Species' value={character.species} />
                     </DataListRoot>
                 </GridItem>
             </Grid>
         </Card.Body>
-    </Card.Root>
+    </Card.Root >
 }
 export default CharacterBlock

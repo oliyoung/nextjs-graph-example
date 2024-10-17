@@ -31,7 +31,6 @@ const Pagination = ({ currentPage, pageCount }: { currentPage: number, pageCount
                 <PaginationItems />
                 <PaginationNextTrigger />
             </HStack>
-            <PaginationPageText />
         </VStack>
     </PaginationRoot >
 }

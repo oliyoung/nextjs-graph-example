@@ -38,7 +38,7 @@ export const UserProfile = () => {
     } = useForm<FormValues>()
 
     const onSubmit = handleSubmit((data) => {
-        setUser && setUser({ username: data.username, jobTitle: data.jobTitle })
+        setUser?.({ username: data.username, jobTitle: data.jobTitle })
         onClose()
     })
 
@@ -46,7 +46,7 @@ export const UserProfile = () => {
         if (!hasUser) {
             onOpen()
         }
-    }, [user]);
+    }, [user, hasUser, onOpen]);
 
     return <DialogRoot centered motionPreset="slide-in-bottom" open={open}>
         <DialogBackdrop />

@@ -1,5 +1,5 @@
 import { Character } from "@/types"
-import { Button, Card, DialogBackdrop, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger, Field, Grid, GridItem, GridProps, Input, Stack, useDisclosure } from "@chakra-ui/react"
+import { Card, DialogBackdrop, DialogBody, DialogContent, DialogHeader, DialogRoot, DialogTitle, DialogTrigger, Grid, GridItem, GridProps, Stack } from "@chakra-ui/react"
 import { DataListItem, DataListRoot } from "./ui/data-list"
 import Image from 'next/image'
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";

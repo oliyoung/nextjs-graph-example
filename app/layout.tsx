@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Flex, HStack, IconButton, Stack, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, HStack, IconButton, Stack, useDisclosure } from '@chakra-ui/react'
 import { Providers } from './providers'
 import { UserProfileContext, UserProfile } from '@/components/UserProfile';
 import { useContext, useEffect, useState } from 'react';

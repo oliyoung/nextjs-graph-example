@@ -9,13 +9,13 @@ import {
 import { HStack, VStack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
-const Pagination = ({ currentPage, pageCount }: { currentPage: number, pageCount: number }) => {
+export const Pagination = ({ currentPage, pageCount }: { currentPage: Readonly<number>, pageCount: Readonly<number> }) => {
     const [url, setUrl] = useState<URL>();
     useEffect(() => {
         setUrl(new URL(window?.location?.href));
     }, [])
 
-    if (!url) {
+    if (!url || !pageCount) {
         return <></>
     }
 
@@ -37,5 +37,3 @@ const Pagination = ({ currentPage, pageCount }: { currentPage: number, pageCount
         </VStack>
     </PaginationRoot >
 }
-export default Pagination
-

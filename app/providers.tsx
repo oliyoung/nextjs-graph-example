@@ -1,7 +1,7 @@
 'use client';
 
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { Provider } from "@/components/ui/provider"
+import { Provider as UIProvider } from "@/components/ui/provider"
 import { UserProfileProvider } from '@/components/UserProfile';
 import { CharacterProvider } from '@/components/Character';
 
@@ -11,7 +11,7 @@ const client = new ApolloClient({
 });
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-    return <Provider>
+    return <UIProvider>
         <ApolloProvider client={client}>
             <UserProfileProvider>
                 <CharacterProvider>
@@ -19,7 +19,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
                 </CharacterProvider>
             </UserProfileProvider>
         </ApolloProvider>
-    </Provider>
+    </UIProvider>
 }
 
 

@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation'
 import { Grid, GridItem, VStack } from '@chakra-ui/react'
 import { gql } from '@/__generated__/gql';
 import { Character } from '@/types';
-import { useContext } from 'react';
+import { Suspense, useContext } from 'react';
 import { UserProfileContext } from '@/components/UserProfile';
 
 const getCharactersQuery = gql(`
@@ -42,7 +42,9 @@ const Page = () => {
 
   return <main>
     <VStack gap="4">
-      <Pagination currentPage={page} pageCount={pageCount} />
+      <Suspense>
+        <Pagination currentPage={page} pageCount={pageCount} />
+      </Suspense>
       <Grid templateColumns={['1', '1', 'repeat(2, 1fr)', 'repeat(3, 1fr)', 'repeat(4, 1fr)']} gap={[2, 6]}>
         {data?.characters?.results?.map((character) =>
           character && <GridItem key={character.id}>

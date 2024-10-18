@@ -1,7 +1,9 @@
 'use client';
 
-import { Box, Flex, HStack, IconButton, Stack, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Flex, HStack, IconButton, Stack, useDisclosure, VStack } from '@chakra-ui/react'
 import { Providers } from './providers'
+import { UserProfileContext, UserProfile } from '@/components/UserProfile';
+import { useContext, useEffect, useState } from 'react';
 import UserProfile, { UserProfileContext } from '@/components/UserProfile';
 import { useContext } from 'react';
 
@@ -10,9 +12,22 @@ const Navigation = () => {
     Home
   </Box>
 }
+const UserMenu = () => {
+  const { user, hasUser, setUser } = useContext(UserProfileContext);
+  const [isClient, setIsClient] = useState(false)
+
+  // Work around NextJS hydration issues, ensure this is executed in the browser
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  return isClient && hasUser && <HStack gap={2}>
+    {`${user?.username} (${user?.jobTitle})`}
+    <Button onClick={() => setUser && setUser({ username: '', jobTitle: '' })}>Logout</Button>
+  </HStack>
+}
 
 const NavigationMenu = () => {
-  const { user, hasUser } = useContext(UserProfileContext);
   const { open, onOpen, onClose } = useDisclosure()
   return <Box bg={'Menu'} px={4}>
     <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
@@ -22,12 +37,12 @@ const NavigationMenu = () => {
         display={{ md: 'none' }}
         onClick={open ? onClose : onOpen}
       />
-      <HStack as={'nav'} display={{ base: 'none', md: 'flex' }}>
+      <HStack as='nav' display={{ base: 'none', md: 'flex' }}>
         <Navigation />
       </HStack>
-      {hasUser && <Flex alignItems={'center'}>
-        Username: {user?.username}
-      </Flex>}
+      <Flex alignItems={'center'}>
+        <UserMenu />
+      </Flex>
     </Flex>
     {open && (
       <Box pb={4} display={{ md: 'none' }}>
@@ -44,6 +59,7 @@ const Layout = ({ children, }: { children: React.ReactNode }) => {
     <html>
       <body>
         <Providers>
+          <CharacterDetail />
           <UserProfile />
           <NavigationMenu />
           <Box p={4}>

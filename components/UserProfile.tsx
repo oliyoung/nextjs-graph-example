@@ -27,7 +27,7 @@ export const UserProfileProvider = ({ children }: { children: React.ReactNode })
     </UserProfileContext.Provider>
 }
 
-const UserProfile = () => {
+export const UserProfile = () => {
     const { user, setUser, hasUser } = useContext(UserProfileContext);
     const { open, onOpen, onClose } = useDisclosure()
 
@@ -82,5 +82,3 @@ const UserProfile = () => {
         </DialogContent>
     </DialogRoot>
 }
-
-export default UserProfile;

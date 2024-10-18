@@ -4,8 +4,7 @@ import { Box, Button, Flex, HStack, IconButton, Stack, useDisclosure, VStack } f
 import { Providers } from './providers'
 import { UserProfileContext, UserProfile } from '@/components/UserProfile';
 import { useContext, useEffect, useState } from 'react';
-import UserProfile, { UserProfileContext } from '@/components/UserProfile';
-import { useContext } from 'react';
+import { CharacterDetail } from '@/components/Character';
 
 const Navigation = () => {
   return <Box as="a" px={2} py={1} rounded={'md'} _hover={{ textDecoration: 'none', bg: 'gray.200' }}>

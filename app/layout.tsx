@@ -3,7 +3,7 @@
 import { Box, Button, Flex, HStack, IconButton, Stack, useDisclosure } from '@chakra-ui/react'
 import { Providers } from './providers'
 import { UserProfileContext, UserProfile } from '@/components/UserProfile';
-import { useContext, useEffect, useState } from 'react';
+import { Suspense, useContext, useEffect, useState } from 'react';
 import { CharacterDetail } from '@/components/Character';
 
 const Navigation = () => {
@@ -61,9 +61,11 @@ const Layout = ({ children, }: { children: React.ReactNode }) => {
           <CharacterDetail />
           <UserProfile />
           <NavigationMenu />
-          <Box p={4}>
-            {children}
-          </Box>
+          <Suspense>
+            <Box p={4}>
+              {children}
+            </Box>
+          </Suspense>
         </Providers>
       </body>
     </html>

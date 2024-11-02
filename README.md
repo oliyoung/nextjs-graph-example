@@ -1,5 +1,3 @@
-[https://leonardoai-oliyoungs-projects.vercel.app/](https://leonardoai-oliyoungs-projects.vercel.app/)
-
 # Notes
 
 ## Strongly Typed
